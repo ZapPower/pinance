@@ -1,4 +1,4 @@
-package sigma.pinance.src.cli.utils;
+package sigma.pinance.src.cli.utils.parsers;
 
 import java.util.ArrayList;
 
@@ -51,10 +51,10 @@ public final class ArgParser {
         return args;
     }
 
-    private static String getArgumentString(String[] args) {
+    private static String getArgumentString(String[] command) {
         StringBuilder sb = new StringBuilder();
-        for (int i = 1; i < args.length; i++) {
-            sb.append(args[i]).append(" ");
+        for (int i = 1; i < command.length; i++) {
+            sb.append(command[i]).append(" ");
         }
         if (sb.isEmpty()) return "";
         sb.setLength(sb.length() - 1);

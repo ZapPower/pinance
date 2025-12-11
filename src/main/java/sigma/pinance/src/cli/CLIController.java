@@ -1,16 +1,13 @@
 package sigma.pinance.src.cli;
 
 import lombok.Getter;
-import sigma.pinance.src.cli.config.CLIConfig;
 import sigma.pinance.src.cli.directory.CommandDirectory;
 import sigma.pinance.src.cli.models.Command;
 import sigma.pinance.src.cli.models.CommandInput;
-import sigma.pinance.src.cli.utils.ArgParser;
+import sigma.pinance.src.cli.utils.parsers.ArgParser;
 import sigma.pinance.src.cli.utils.UserInputUtils;
 import sigma.pinance.src.cli.utils.formatters.ExceptionFormatter;
-import sigma.pinance.src.core.managers.AppManager;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public final class CLIController {
@@ -46,6 +43,7 @@ public final class CLIController {
 
     public static void init(Scanner s) {
         scanner = s;
+        // TODO: Add wrapper function for this
         System.out.print(UserInputUtils.getRelativeQueryPrefix());
     }
 

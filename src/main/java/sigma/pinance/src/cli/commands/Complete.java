@@ -10,31 +10,23 @@ import sigma.pinance.src.core.managers.AppManager;
 
 import java.util.Scanner;
 
-public class Update extends Command {
+public class Complete extends Command {
+
     @Override
     public void execute(CommandInput commandInput, Scanner scanner) {
         var args = commandInput.args();
-        if (args.size() < 3) {
-            throw new AppException(getArgFormat());
+        if (args.isEmpty()) {
+            throw new AppException("Please specify the item to complete: " + getArgFormat());
         }
-
 
         BudgetItem updateItem = (args.getFirst().equalsIgnoreCase("this")) ?
                 AppManager.getViewpoint() :
                 AppManager.getItem(args.getFirst());
 
-        switch (args.get(1).toLowerCase()) {
-            case "name":
-                updateItem.setName(args.get(2));
-                break;
-            case "desc":
-                updateItem.setDescription(args.get(2));
-                break;
-            case "amount":
-                updateItem.setAmount(UserInputUtils.parseDouble(args.get(2)));
-                break;
-            default:
-                throw new AppException("Invalid item property!");
+        boolean response = UserInputUtils.queryUserValidation("Are you sure you want to complete "
+                + updateItem.getName() + "? (Y/N)", scanner);
+        if (response) {
+            updateItem.complete();
         }
 
         CLIController.executeCommand("view");

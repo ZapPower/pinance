@@ -6,9 +6,7 @@ import sigma.pinance.src.cli.models.CommandInput;
 import sigma.pinance.src.cli.utils.UserInputUtils;
 import sigma.pinance.src.core.exceptions.AppException;
 import sigma.pinance.src.core.managers.AppManager;
-import sigma.pinance.src.core.managers.ObjectiveManager;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Scanner;
 

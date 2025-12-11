@@ -97,6 +97,22 @@ public class BudgetItem {
         return amount + (completed ? amount : 0);
     }
 
+    public void complete() {
+        completed = true;
+        for (BudgetItem child : getChildItems()) {
+            if (!child.isCompleted()) {
+                child.complete();
+            }
+        }
+    }
+
+    public void unComplete() {
+        completed = false;
+        if (Objects.nonNull(parentBudget) && parentBudget.isCompleted()) {
+            parentBudget.unComplete();
+        }
+    }
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

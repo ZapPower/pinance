@@ -1,18 +1,21 @@
 package sigma.pinance.src.cli.utils;
 
 import sigma.pinance.src.cli.config.CLIConfig;
+import sigma.pinance.src.cli.utils.parsers.DateParser;
 import sigma.pinance.src.core.budget.BudgetItem;
 import sigma.pinance.src.core.budget.Objective;
 import sigma.pinance.src.core.exceptions.AppException;
 import sigma.pinance.src.core.managers.AppManager;
 import sigma.pinance.src.core.managers.ObjectiveManager;
 
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.Stack;
 
 public final class UserInputUtils {
     public static String queryUser(String query, Scanner scanner) {
+        // TODO: add wrapper function for this
         System.out.print(query + CLIConfig.INPUT_PREFIX);
         return scanner.nextLine();
     }
@@ -46,6 +49,12 @@ public final class UserInputUtils {
         return sb.toString();
     }
 
+    public static LocalDate queryUserDate(String query, Scanner scanner) {
+        System.out.print(query + CLIConfig.INPUT_PREFIX);
+        return DateParser.parseFuzzy(scanner.nextLine(), LocalDate.now());
+    }
+
+    // TODO: move to its own parser
     public static double parseDouble(String input) {
         try {
             return Double.parseDouble(input);
@@ -53,8 +62,6 @@ public final class UserInputUtils {
             throw new AppException("Input needs to be a number!");
         }
     }
-
-
 
     private UserInputUtils() {}
 }

@@ -38,8 +38,11 @@ public final class BudgetItemFormatter {
         for (BudgetItem child : children) {
             sb.append("\n");
             sb.append("\t".repeat(Math.max(0, depth)));
-            sb.append("- ").append(child.getName()).append(" (").append(child.getAmount())
+            sb.append("- ").append(colorByCompletion(child.getName(), child.isCompleted())).append(" (").append(child.getAmount())
                     .append(")");
+            if (depth == CLIConfig.MAX_VIEW_DEPTH && !child.getChildItems().isEmpty()) {
+                sb.append(" >");
+            }
             updateChildItemsBuilder(child.getChildItems(), sb, depth + 1);
         }
     }

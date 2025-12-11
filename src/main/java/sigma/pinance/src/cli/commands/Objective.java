@@ -15,8 +15,8 @@ public final class Objective extends Command {
     public void execute(CommandInput commandInput, Scanner scanner) {
         String name = UserInputUtils.queryUser("Enter name", scanner);
         double startingBudget = getUserStartingBudget(scanner);
-        LocalDate startDate = LocalDate.parse(UserInputUtils.queryUser("Start Date", scanner));
-        LocalDate endDate = LocalDate.parse(UserInputUtils.queryUser("End Date", scanner));
+        LocalDate startDate = UserInputUtils.queryUserDate("Start Date", scanner);
+        LocalDate endDate = UserInputUtils.queryUserDate("End Date", scanner);
 
         sigma.pinance.src.core.budget.Objective o = ObjectiveManager.createNewObjective(name, startingBudget, startDate, endDate);
         if (UserInputUtils.queryUserValidation("Go to Objective " + o.getName() + "?", scanner)) {
