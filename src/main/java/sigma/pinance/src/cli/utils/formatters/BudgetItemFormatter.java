@@ -1,30 +1,48 @@
 package sigma.pinance.src.cli.utils.formatters;
 
+import sigma.pinance.src.cli.config.CLIConfig;
 import sigma.pinance.src.cli.utils.TextColor;
 import sigma.pinance.src.core.budget.BudgetItem;
 
+import java.util.ArrayList;
 import java.util.Objects;
 
-public class BudgetItemFormatter {
+public final class BudgetItemFormatter {
     public static String format(BudgetItem item) {
-        StringBuilder builder = new StringBuilder();
-        builder.append("\n");
-        builder.append(colorByCompletion(item.getName(), item.isCompleted()));
-        builder.append(" (");
-        builder.append(item.getAmount());
-        builder.append(")");
-        builder.append("\n\t");
-        for (BudgetItem budgetItem : item.getChildItems()) {
-            builder.append("- ").append(colorByCompletion(budgetItem.getName(), budgetItem.isCompleted()))
-                    .append(" (").append(budgetItem.getAmount()).append(")")
-                    .append("\n\t");
-        }
-        builder.append("\r").append(Objects.nonNull(item.getDescription()) ? item.getDescription() + "\n" : "");
-        return builder.toString();
+        String childFormat = getChildItemsFormat(item.getChildItems());
+
+        return "\n" +
+                colorByCompletion(item.getName(), item.isCompleted()) +
+                " (" +
+                item.getAmount() +
+                ")" +
+                childFormat +
+                "\n" + (Objects.nonNull(item.getDescription()) ? item.getDescription() + "\n" : "");
     }
 
     private static String colorByCompletion(String str, boolean completed) {
         TextColor tc = completed ? TextColor.GREEN : TextColor.ORANGE;
         return tc + str + TextColor.RESET;
     }
+
+    private static String getChildItemsFormat(ArrayList<BudgetItem> children) {
+        StringBuilder builder = new StringBuilder();
+        updateChildItemsBuilder(children, builder, 1);
+        return builder.toString();
+    }
+
+    private static void updateChildItemsBuilder(ArrayList<BudgetItem> children, StringBuilder sb, int depth) {
+        if (depth > CLIConfig.MAX_VIEW_DEPTH || children.isEmpty()) {
+            return;
+        }
+        for (BudgetItem child : children) {
+            sb.append("\n");
+            sb.append("\t".repeat(Math.max(0, depth)));
+            sb.append("- ").append(child.getName()).append(" (").append(child.getAmount())
+                    .append(")");
+            updateChildItemsBuilder(child.getChildItems(), sb, depth + 1);
+        }
+    }
+
+    private BudgetItemFormatter() {}
 }

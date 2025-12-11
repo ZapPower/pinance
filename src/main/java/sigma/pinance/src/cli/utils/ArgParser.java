@@ -2,7 +2,7 @@ package sigma.pinance.src.cli.utils;
 
 import java.util.ArrayList;
 
-public class ArgParser {
+public final class ArgParser {
     private static ArrayList<String> parseArguments(char[] input) {
         ArrayList<String> args = new ArrayList<>();
         StringBuilder current = new StringBuilder();
@@ -64,4 +64,6 @@ public class ArgParser {
     public static ArrayList<String> parse(String[] command) {
         return parseArguments(getArgumentString(command).toCharArray());
     }
+
+    private ArgParser() {}
 }

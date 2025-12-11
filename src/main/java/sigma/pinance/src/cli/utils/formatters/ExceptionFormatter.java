@@ -6,7 +6,7 @@ import sigma.pinance.src.core.exceptions.BudgetItemException;
 import sigma.pinance.src.core.exceptions.ObjectiveException;
 import sigma.pinance.src.core.exceptions.Severity;
 
-public class ExceptionFormatter {
+public final class ExceptionFormatter {
     public static String getExceptionString(RuntimeException e) {
         return switch (e) {
             case BudgetItemException i -> getBudgetItemExceptionString(i);
@@ -42,4 +42,6 @@ public class ExceptionFormatter {
         }
         return tc + s.toString() + TextColor.RESET;
     }
+
+    private ExceptionFormatter() {}
 }
