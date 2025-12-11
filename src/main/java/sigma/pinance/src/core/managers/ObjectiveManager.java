@@ -11,6 +11,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Manages a list of objectives and the current one selected, and can perform operations
+ * on the current objective.
+ */
 public class ObjectiveManager {
     @Getter
     private static final ArrayList<Objective> objectives = new ArrayList<>();

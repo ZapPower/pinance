@@ -2,6 +2,9 @@ package sigma.pinance.src.cli.utils.parsers;
 
 import java.util.ArrayList;
 
+/**
+ * Parser that parses arguments from commands.
+ */
 public final class ArgParser {
     private static ArrayList<String> parseArguments(char[] input) {
         ArrayList<String> args = new ArrayList<>();

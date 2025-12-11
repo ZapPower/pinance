@@ -10,11 +10,20 @@ import sigma.pinance.src.cli.utils.formatters.ExceptionFormatter;
 
 import java.util.*;
 
+/**
+ * Controls the CLI on a high-level and routes and executes commands.
+ */
 public final class CLIController {
     @Getter
     private static final ArrayList<CommandInput> COMMAND_LOG = new ArrayList<>();
     private static Scanner scanner;
 
+    /**
+     * Executes a command from raw input.
+     * {@link CLIController#init(Scanner)} Must be run beforehand.
+     *
+     * @param input Raw input string
+     */
     public static void executeCommand(String input) {
         CommandInput commandInput = parseCommand(input);
         if (commandInput.commandName().isBlank()) return;
@@ -41,12 +50,20 @@ public final class CLIController {
         return new CommandInput(commandName, commandArgs);
     }
 
+    /**
+     * Initializes the CLI with a scanner.
+     * @param s Scanner for user input
+     */
     public static void init(Scanner s) {
         scanner = s;
         // TODO: Add wrapper function for this
         System.out.print(UserInputUtils.getRelativeQueryPrefix());
     }
 
+    /**
+     * Queries the user for the next command and executes it.
+     * {@link CLIController#init(Scanner)} Must be run beforehand.
+     */
     public static void nextCommand() {
         String input = scanner.nextLine();
         executeCommand(input);

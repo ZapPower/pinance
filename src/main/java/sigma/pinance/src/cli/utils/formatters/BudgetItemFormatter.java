@@ -7,6 +7,9 @@ import sigma.pinance.src.core.budget.BudgetItem;
 import java.util.ArrayList;
 import java.util.Objects;
 
+/**
+ * Formats BudgetItems to their string format with context.
+ */
 public final class BudgetItemFormatter {
     public static String format(BudgetItem item) {
         String childFormat = getChildItemsFormat(item.getChildItems());

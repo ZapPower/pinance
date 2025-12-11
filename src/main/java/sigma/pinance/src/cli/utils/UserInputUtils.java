@@ -13,19 +13,43 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.Stack;
 
+/**
+ * Contains utility functions that can be used to capture/query user input.
+ */
 public final class UserInputUtils {
+    /**
+     * Query the user for a raw input.
+     * NOTE: The query is sent to the user raw and appended with the INPUT_PREFIX
+     * @see CLIConfig
+     *
+     * @param query The question string to be asked to the user
+     * @param scanner The scanner that the user is hooked into
+     * @return The raw input
+     */
     public static String queryUser(String query, Scanner scanner) {
         // TODO: add wrapper function for this
         System.out.print(query + CLIConfig.INPUT_PREFIX);
         return scanner.nextLine();
     }
 
+    /**
+     * Query a user for a Y/N question (boolean)
+     * NOTE: The query is sent to the user raw and appended with the INPUT_PREFIX
+     * @see CLIConfig
+     *
+     * @param query The question string to be asked to the user
+     * @param scanner The scanner that the user is hooked into
+     * @return The boolean response
+     */
     public static boolean queryUserValidation(String query, Scanner scanner) {
-        System.out.print(query + CLIConfig.INPUT_PREFIX);
-        String input = scanner.nextLine().toLowerCase();
+        String input = queryUser(query, scanner).toLowerCase();
         return !input.equals("no") && !input.equals("n");
     }
 
+    /**
+     * Gets the relative query prefix for the CLI (similar to terminal)
+     * @return The query prefix for general operations.
+     */
     public static String getRelativeQueryPrefix() {
         Objective o = ObjectiveManager.getCurrentObjective();
         if (Objects.isNull(o)) {
@@ -49,9 +73,17 @@ public final class UserInputUtils {
         return sb.toString();
     }
 
+    /**
+     * Query a user for a date (fuzzy parsing)
+     * NOTE: The query is sent to the user raw and appended with the INPUT_PREFIX
+     * @see CLIConfig
+     *
+     * @param query The question string to be asked to the user
+     * @param scanner The scanner that the user is hooked into
+     * @return The LocalDate that gets parsed
+     */
     public static LocalDate queryUserDate(String query, Scanner scanner) {
-        System.out.print(query + CLIConfig.INPUT_PREFIX);
-        return DateParser.parseFuzzy(scanner.nextLine(), LocalDate.now());
+        return DateParser.parseFuzzy(queryUser(query, scanner), LocalDate.now());
     }
 
     // TODO: move to its own parser

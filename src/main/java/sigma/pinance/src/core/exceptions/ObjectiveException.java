@@ -2,6 +2,9 @@ package sigma.pinance.src.core.exceptions;
 
 import lombok.Getter;
 
+/**
+ * ObjectiveExceptions should only occur within an Objective and when Objective operations fail.
+ */
 public class ObjectiveException extends RuntimeException {
     @Getter
     final Severity severity;

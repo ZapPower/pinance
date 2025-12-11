@@ -9,6 +9,10 @@ import sigma.pinance.src.cli.utils.TextUtils;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * An individual that can be assigned to an Objective.
+ * They can be expected to contribute a certain amount and make contributions.
+ */
 @Data
 public class Member {
     private double expectedContribution;

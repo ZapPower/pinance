@@ -3,7 +3,6 @@ package sigma.pinance.src.poctesting;
 import sigma.pinance.src.cli.CLIController;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class POCTest {
     public static void main(String[] args) {

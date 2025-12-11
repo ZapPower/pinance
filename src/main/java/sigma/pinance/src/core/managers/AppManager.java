@@ -1,6 +1,5 @@
 package sigma.pinance.src.core.managers;
 
-import lombok.Getter;
 import sigma.pinance.src.core.budget.BudgetItem;
 import sigma.pinance.src.core.exceptions.AppException;
 
@@ -8,6 +7,9 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * Manages the viewpoint and extends the ObjectiveManager. Main manipulation point for the application.
+ */
 public class AppManager extends ObjectiveManager {
     private static BudgetItem viewpoint;
 

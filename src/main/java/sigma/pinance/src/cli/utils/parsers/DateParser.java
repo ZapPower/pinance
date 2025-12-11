@@ -5,7 +5,17 @@ import sigma.pinance.src.core.exceptions.AppException;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+/**
+ * Parser that parses dates from raw input.
+ */
 public class DateParser {
+    /**
+     * Attempt to coerce and parse input into a LocalDate
+     *
+     * @param input The raw input
+     * @param today The current date (for defaulting)
+     * @return The interpreted LocalDate
+     */
     public static LocalDate parseFuzzy(String input, LocalDate today) {
         if (input == null || input.trim().isEmpty()) {
             return today;

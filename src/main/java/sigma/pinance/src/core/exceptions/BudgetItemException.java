@@ -4,6 +4,9 @@ import lombok.Getter;
 
 import java.util.UUID;
 
+/**
+ * BudgetItemExceptions should only occur within the BudgetItem when operations fail.
+ */
 @Getter
 public class BudgetItemException extends RuntimeException {
     final Severity severity;

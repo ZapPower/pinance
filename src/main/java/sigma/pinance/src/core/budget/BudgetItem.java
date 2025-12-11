@@ -8,6 +8,10 @@ import java.util.ArrayList;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * A Budget Item is a singular item within a budget that can track itself and its children
+ * and is the primary unit for budget operations
+ */
 @Data
 public class BudgetItem {
     private double amount;
@@ -27,6 +31,13 @@ public class BudgetItem {
         this.budgetItemID = UUID.randomUUID();
     }
 
+    /**
+     * Grab a child item by budgetItemID
+     *
+     * @param id budgetItemID
+     * @return The associated item
+     * @throws BudgetItemException when an item cannot be found
+     */
     public BudgetItem getItem(UUID id) {
         BudgetItem item = childItems.stream()
                 .filter(i -> i.budgetItemID.equals(id))
@@ -37,6 +48,13 @@ public class BudgetItem {
         return item;
     }
 
+    /**
+     * Grab a child item by name
+     *
+     * @param name item name
+     * @return The associated item
+     * @throws BudgetItemException when an item cannot be found
+     */
     public BudgetItem getItem(String name) {
         BudgetItem item = childItems.stream()
                 .filter(i -> i.getName().equalsIgnoreCase(name))
@@ -82,21 +100,27 @@ public class BudgetItem {
                     "Sub-items total beyond the parent budget! Increase the parent budget or reduce a child budget",
                     budgetItemID);
         }
-//        for (BudgetItem child : childItems) {
-//            child.validate();
-//        }
+        for (BudgetItem child : childItems) {
+            child.validate();
+        }
     }
 
+    /**
+     * @return The total completed amount of the child budget items
+     */
     public double getCompletedItemAmount() {
-        double amount = 0;
+        double completedAmt = 0;
         if (!completed) {
             for (BudgetItem budgetItem : childItems) {
-                amount += budgetItem.getCompletedItemAmount();
+                completedAmt += budgetItem.getCompletedItemAmount();
             }
         }
-        return amount + (completed ? amount : 0);
+        return completedAmt + (completed ? completedAmt : 0);
     }
 
+    /**
+     * Completes this budgetItem and marks its children as completed
+     */
     public void complete() {
         completed = true;
         for (BudgetItem child : getChildItems()) {
@@ -106,6 +130,9 @@ public class BudgetItem {
         }
     }
 
+    /**
+     * Un-Completes this budget item and marks the parent as un-completed
+     */
     public void unComplete() {
         completed = false;
         if (Objects.nonNull(parentBudget) && parentBudget.isCompleted()) {
