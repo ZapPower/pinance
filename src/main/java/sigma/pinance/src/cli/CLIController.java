@@ -5,14 +5,13 @@ import sigma.pinance.src.cli.config.CLIConfig;
 import sigma.pinance.src.cli.directory.CommandDirectory;
 import sigma.pinance.src.cli.models.Command;
 import sigma.pinance.src.cli.models.CommandInput;
+import sigma.pinance.src.cli.utils.ArgParser;
 import sigma.pinance.src.cli.utils.UserInputUtils;
 import sigma.pinance.src.cli.utils.formatters.ExceptionFormatter;
 import sigma.pinance.src.core.managers.AppManager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-import java.util.Scanner;
+import java.lang.reflect.Array;
+import java.util.*;
 
 public final class CLIController {
     @Getter
@@ -24,7 +23,7 @@ public final class CLIController {
         if (commandInput.commandName().isBlank()) return;
         Command command = CommandDirectory.fetchCommand(commandInput.commandName());
         if (Objects.isNull(command)) {
-            System.out.println("Command '" + commandInput.commandName() + "' found - try 'help'");
+            System.out.println("Command '" + commandInput.commandName() + "' not found - try 'help'");
             return;
         }
 
@@ -36,12 +35,12 @@ public final class CLIController {
     }
 
     private static CommandInput parseCommand(String input) {
-        String[] args = input.toLowerCase().split(" ");
+        String[] args = input.split(" ");
         if (args.length == 0) {
             return new CommandInput("", null);
         }
-        String commandName = args[0];
-        ArrayList<String> commandArgs = new ArrayList<>(Arrays.asList(args).subList(1, args.length));
+        String commandName = args[0].toLowerCase();
+        ArrayList<String> commandArgs = ArgParser.parse(args);
         return new CommandInput(commandName, commandArgs);
     }
 
@@ -55,4 +54,6 @@ public final class CLIController {
         executeCommand(input);
         System.out.print(UserInputUtils.getRelativeQueryPrefix());
     }
+
+    private CLIController() {}
 }

@@ -113,4 +113,9 @@ public class BudgetItem {
         builder.append("\r").append(Objects.nonNull(description) ? description : "");
         return builder.toString();
     }
+
+    public void setAmount(double newAmount) {
+        this.amount = newAmount;
+        validate();
+    }
 }

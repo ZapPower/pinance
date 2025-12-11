@@ -3,6 +3,7 @@ package sigma.pinance.src.cli.utils;
 import sigma.pinance.src.cli.config.CLIConfig;
 import sigma.pinance.src.core.budget.BudgetItem;
 import sigma.pinance.src.core.budget.Objective;
+import sigma.pinance.src.core.exceptions.AppException;
 import sigma.pinance.src.core.managers.AppManager;
 import sigma.pinance.src.core.managers.ObjectiveManager;
 
@@ -44,6 +45,16 @@ public final class UserInputUtils {
 
         return sb.toString();
     }
+
+    public static double parseDouble(String input) {
+        try {
+            return Double.parseDouble(input);
+        } catch (NumberFormatException e) {
+            throw new AppException("Input needs to be a number!");
+        }
+    }
+
+
 
     private UserInputUtils() {}
 }

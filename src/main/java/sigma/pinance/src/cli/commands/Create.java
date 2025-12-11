@@ -1,5 +1,6 @@
 package sigma.pinance.src.cli.commands;
 
+import sigma.pinance.src.cli.CLIController;
 import sigma.pinance.src.cli.models.Command;
 import sigma.pinance.src.cli.models.CommandInput;
 import sigma.pinance.src.cli.utils.UserInputUtils;
@@ -26,6 +27,8 @@ public final class Create extends Command {
         double amount = getBudgetAmountFromUser(scanner);
         String description = UserInputUtils.queryUser("Enter description", scanner);
         AppManager.addItem(args.getFirst(), amount, description);
+
+        CLIController.executeCommand("view");
     }
 
     public double getBudgetAmountFromUser(Scanner scanner) {

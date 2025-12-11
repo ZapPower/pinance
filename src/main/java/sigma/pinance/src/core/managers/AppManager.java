@@ -52,6 +52,13 @@ public class AppManager extends ObjectiveManager {
         viewpoint = viewpoint.getParentBudget();
     }
 
+    public static BudgetItem getItem(String itemName) {
+        if (Objects.isNull(viewpoint)) {
+            throw new AppException("Please create or select an objective first!");
+        }
+        return viewpoint.getItem(itemName);
+    }
+
     public AppManager() {
         super();
     }

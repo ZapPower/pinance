@@ -8,6 +8,7 @@ import java.util.Objects;
 public class BudgetItemFormatter {
     public static String format(BudgetItem item) {
         StringBuilder builder = new StringBuilder();
+        builder.append("\n");
         builder.append(colorByCompletion(item.getName(), item.isCompleted()));
         builder.append(" (");
         builder.append(item.getAmount());
@@ -18,7 +19,7 @@ public class BudgetItemFormatter {
                     .append(" (").append(budgetItem.getAmount()).append(")")
                     .append("\n\t");
         }
-        builder.append("\r").append(Objects.nonNull(item.getDescription()) ? item.getDescription() : "");
+        builder.append("\r").append(Objects.nonNull(item.getDescription()) ? item.getDescription() + "\n" : "");
         return builder.toString();
     }
 
