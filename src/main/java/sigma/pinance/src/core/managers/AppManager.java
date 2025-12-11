@@ -43,6 +43,8 @@ public class AppManager extends ObjectiveManager {
         viewpoint = viewpoint.getItem(budgetItemID);
     }
 
+    public static void traverseDown(String itemName) { viewpoint = viewpoint.getItem(itemName); }
+
     public static void traverseUp() {
         if (Objects.isNull(viewpoint.getParentBudget())) {
             throw new AppException("You cannot traverse up when you are at the root!");

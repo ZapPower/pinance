@@ -8,12 +8,19 @@ import sigma.pinance.src.core.exceptions.AppException;
 import sigma.pinance.src.core.managers.AppManager;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 public final class View extends Command {
     @Override
-    public void execute(CommandInput commandInput) {
+    public void execute(CommandInput commandInput, Scanner scanner) {
         var args = commandInput.args();
         if (args.isEmpty()) {
+            viewNoArgs();
+        } else if (args.getFirst().equalsIgnoreCase("parent")) {
+            AppManager.traverseUp();
+            viewNoArgs();
+        } else {
+            AppManager.traverseDown(args.getFirst());
             viewNoArgs();
         }
     }

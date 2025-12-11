@@ -2,13 +2,15 @@ package sigma.pinance.src.cli.directory;
 
 import lombok.Getter;
 import sigma.pinance.src.cli.commands.Create;
+import sigma.pinance.src.cli.commands.Objective;
 import sigma.pinance.src.cli.commands.View;
 import sigma.pinance.src.cli.models.Command;
 
 @Getter
 public enum CommandEnum {
     VIEW("view", new View()),
-    CREATE("create", new Create());
+    CREATE("create", new Create()),
+    OBJECTIVE("objective", new Objective());
 
     private final Command command;
     private final String name;

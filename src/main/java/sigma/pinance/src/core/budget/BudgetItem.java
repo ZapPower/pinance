@@ -37,6 +37,16 @@ public class BudgetItem {
         return item;
     }
 
+    public BudgetItem getItem(String name) {
+        BudgetItem item = childItems.stream()
+                .filter(i -> i.getName().equalsIgnoreCase(name))
+                .findFirst().orElse(null);
+        if (Objects.isNull(item)) {
+            throw new BudgetItemException(Severity.LOW, "Could not find item " + name, budgetItemID);
+        }
+        return item;
+    }
+
     public void addItem(String name, double amount, String description) {
         BudgetItem item = new BudgetItem(amount, name, this);
         item.setDescription(description);

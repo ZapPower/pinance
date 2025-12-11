@@ -8,11 +8,9 @@ import java.util.regex.Pattern;
 public class POCTest {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.print(": ");
+        CLIController.init(scanner);
         while (true) {
-            String input = scanner.nextLine();
-            CLIController.executeCommand(input);
-            System.out.print(": ");
+            CLIController.nextCommand();
         }
     }
 }

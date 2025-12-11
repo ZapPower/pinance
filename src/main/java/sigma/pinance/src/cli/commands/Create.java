@@ -2,19 +2,33 @@ package sigma.pinance.src.cli.commands;
 
 import sigma.pinance.src.cli.models.Command;
 import sigma.pinance.src.cli.models.CommandInput;
+import sigma.pinance.src.cli.utils.UserInputUtils;
+import sigma.pinance.src.core.exceptions.AppException;
+import sigma.pinance.src.core.managers.AppManager;
 import sigma.pinance.src.core.managers.ObjectiveManager;
 
 import java.time.LocalDate;
+import java.util.Objects;
+import java.util.Scanner;
 
 public final class Create extends Command {
     @Override
-    public void execute(CommandInput commandInput) {
+    public void execute(CommandInput commandInput, Scanner scanner) {
+        if (Objects.isNull(AppManager.getViewpoint())) {
+            throw new AppException("Please create or select an objective first!");
+        }
+
         var args = commandInput.args();
-        ObjectiveManager.createNewObjective(
-                args.isEmpty() ? "Test" : args.getFirst(),
-                200,
-                LocalDate.now(),
-                LocalDate.now()
-        );
+        if (args.isEmpty()) {
+            throw new AppException("Please specify the name of the new item!");
+        }
+
+        double amount = getBudgetAmountFromUser(scanner);
+        String description = UserInputUtils.queryUser("Enter description", scanner);
+        AppManager.addItem(args.getFirst(), amount, description);
+    }
+
+    public double getBudgetAmountFromUser(Scanner scanner) {
+        return Double.parseDouble(UserInputUtils.queryUser("Enter amount", scanner));
     }
 }
