@@ -8,7 +8,7 @@ import sigma.pinance.src.core.managers.AppManager;
 
 import java.util.Scanner;
 
-public class Remove extends Command {
+public final class Remove extends Command {
     @Override
     public void execute(CommandInput commandInput, Scanner scanner) {
         var args = commandInput.args();
