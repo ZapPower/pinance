@@ -36,7 +36,7 @@ public final class CLIController {
         try {
             command.execute(commandInput, scanner);
         } catch (RuntimeException e) {
-            System.out.println(ExceptionFormatter.getExceptionString(e));
+            System.out.println("\n" + ExceptionFormatter.getExceptionString(e) + "\n");
         }
     }
 

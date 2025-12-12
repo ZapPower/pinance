@@ -10,7 +10,8 @@ public enum CommandEnum {
     CREATE("create", new Create(), "create {item}"),
     OBJECTIVE("objective", new Objective()),
     UPDATE("update", new Update(), "update {item} [name | desc | amount] {updated}"),
-    COMPLETE("complete", new Complete(), "complete {item}");
+    COMPLETE("complete", new Complete(), "complete {item}"),
+    REMOVE("remove", new Remove(), "remove {item}");
 
     private final Command command;
     private final String name;

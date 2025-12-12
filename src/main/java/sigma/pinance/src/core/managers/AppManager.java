@@ -61,6 +61,13 @@ public class AppManager extends ObjectiveManager {
         return viewpoint.getItem(itemName);
     }
 
+    public static void removeItem(String itemName) {
+        if (Objects.isNull(viewpoint)) {
+            throw new AppException("Please create or select an objective first!");
+        }
+        viewpoint.removeItem(itemName);
+    }
+
     public AppManager() {
         super();
     }

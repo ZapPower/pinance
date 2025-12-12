@@ -31,6 +31,15 @@ public class BudgetItem {
         this.budgetItemID = UUID.randomUUID();
     }
 
+    public void removeItem(String itemName) {
+        boolean successful = childItems.removeIf(
+                item -> item.getName().equalsIgnoreCase(itemName)
+        );
+        if (!successful) {
+            throw new BudgetItemException(Severity.LOW, "Could not find item " + itemName, budgetItemID);
+        }
+    }
+
     /**
      * Grab a child item by budgetItemID
      *
@@ -51,16 +60,16 @@ public class BudgetItem {
     /**
      * Grab a child item by name
      *
-     * @param name item name
+     * @param itemName item name
      * @return The associated item
      * @throws BudgetItemException when an item cannot be found
      */
-    public BudgetItem getItem(String name) {
+    public BudgetItem getItem(String itemName) {
         BudgetItem item = childItems.stream()
-                .filter(i -> i.getName().equalsIgnoreCase(name))
+                .filter(i -> i.getName().equalsIgnoreCase(itemName))
                 .findFirst().orElse(null);
         if (Objects.isNull(item)) {
-            throw new BudgetItemException(Severity.LOW, "Could not find item " + name, budgetItemID);
+            throw new BudgetItemException(Severity.LOW, "Could not find item " + itemName, budgetItemID);
         }
         return item;
     }
