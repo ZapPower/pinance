@@ -22,6 +22,11 @@ public final class Create extends Command {
             throw new AppException("Please specify the name of the new item!");
         }
 
+        //TODO: Make it so you can't create a duplicate item name
+        if(checkDuplicateName(args.getFirst())){
+            throw new AppException("That item name already exists!");
+        }
+
         double amount = getBudgetAmountFromUser(scanner);
         String description = UserInputUtils.queryUser("Enter description", scanner);
         AppManager.addItem(args.getFirst(), amount, description);
@@ -31,5 +36,12 @@ public final class Create extends Command {
 
     public double getBudgetAmountFromUser(Scanner scanner) {
         return Double.parseDouble(UserInputUtils.queryUser("Enter amount", scanner));
+    }
+
+    public boolean checkDuplicateName(String name){
+        boolean isDuplicate = AppManager.getViewpointChildren().stream()
+            .anyMatch(p -> p.getName().equals(name));
+
+        return isDuplicate;
     }
 }
