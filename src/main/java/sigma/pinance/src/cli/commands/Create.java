@@ -22,7 +22,6 @@ public final class Create extends Command {
             throw new AppException("Please specify the name of the new item!");
         }
 
-        //TODO: Make it so you can't create a duplicate item name
         if(checkDuplicateName(args.getFirst())){
             throw new AppException("That item name already exists!");
         }
