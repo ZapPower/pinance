@@ -10,7 +10,7 @@ import sigma.pinance.src.core.managers.AppManager;
 
 import java.util.Scanner;
 
-public class Update extends Command {
+public final class Update extends Command {
     @Override
     public void execute(CommandInput commandInput, Scanner scanner) {
         var args = commandInput.args();
